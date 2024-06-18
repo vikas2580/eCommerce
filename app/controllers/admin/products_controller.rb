@@ -1,16 +1,7 @@
-class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :update, :destroy]
+class Admin::ProductsController < ApplicationController
+  before_action :authenticate_admin!
 
-  def index
-    products = Product.all
-    render json: products
-  end
-
-  def show
-    render json: @product
-  end
-
-   def create
+  def create
     @product = Product.new(product_params)
     if @product.save
       render json: @product, status: :created
